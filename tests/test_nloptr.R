@@ -1,4 +1,5 @@
 library(ROI)
+library(ROI.plugin.nloptr)
 
 check <- function(domain, condition, level=1, message="", call=sys.call(-1L)) {
     if ( isTRUE(condition) ) return(invisible(NULL))
@@ -59,6 +60,7 @@ test_nlp_01 <- function() {
     # Solve Rosenbrock Banana function.
     res <- ROI_solve(x, solver="nloptr", control)
     terms(objective(x))
+    stopifnot(is.numeric(res$solution))
     
     # Check results.
     check("NLP-01@01", equal(res$objval, 0.0))
@@ -80,6 +82,7 @@ test_nlp_01 <- function() {
 
     # Solve Rosenbrock Banana function.
     res <- ROI_solve(x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
 
     # Check results.
     check("NLP-01@03", equal(res$objval, 0.0))
@@ -101,7 +104,8 @@ test_nlp_01 <- function() {
              bounds = V_bound(li=1:2, ui=1:2, lb=lb, ub=ub) )
 
     ## Solve Rosenbrock Banana function.
-    res1 <- ROI_solve(x, solver="nloptr", control)    
+    res1 <- ROI_solve(x, solver="nloptr", control)
+    stopifnot(is.numeric(res1$solution))
 
     ## Define optimizer options.
     ## this optimization uses a different seed for the
@@ -113,7 +117,8 @@ test_nlp_01 <- function() {
     control <- c(opts, start=list(x0))
     
     ## Solve Rosenbrock Banana function.
-    res2 <- ROI_solve(x, solver="nloptr", control)    
+    res2 <- ROI_solve(x, solver="nloptr", control)
+    stopifnot(is.numeric(res2$solution))
 
     ## Define optimizer options.
     ## this optimization uses the same seed for the random
@@ -125,7 +130,8 @@ test_nlp_01 <- function() {
     control <- c(opts, start=list(x0))
     
     ## Solve Rosenbrock Banana function.
-    res3 <- ROI_solve(x, solver="nloptr", control)    
+    res3 <- ROI_solve(x, solver="nloptr", control)
+    stopifnot(is.numeric(res3$solution))
     
     ## Check results.
     check("NLP-01@05", equal(res1$objval, 0.0, tol=1e-4 ))
@@ -205,6 +211,7 @@ test_nlp_02 <- function() {
 
     ## Solve Rosenbrock Banana function.
     res0 <- ROI_solve( x, solver="nloptr", control )
+    stopifnot(is.numeric(res0$solution))
 
     check("NLP-02@01", equal(res0$solution, solution.opt, tol=1e-4))
 
@@ -227,6 +234,7 @@ test_nlp_02 <- function() {
 
     ## Solve Rosenbrock Banana function.
     res1 <- ROI_solve( x, solver="nloptr", control )
+    stopifnot(is.numeric(res1$solution))
     check("NLP-02@02", equal(res1$solution, solution.opt, tol=1e-4))
 }
 
@@ -327,12 +335,13 @@ test_nlp_03 <- function() {
     x <- OP(objective = F_objective(F=f_objective, n=2L, G=f_gradient), 
             constraints = F_constraint(F=g_constraint, dir="<=", rhs=0, J=g_jacobian),
             bounds = V_bound(li=1:2, ui=1:2, lb=c(-50,-50), ub=c(50,50)) )
-
+    
     ## Solve Rosenbrock Banana function.
     res <- ROI_solve( x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
     
     # Run some checks on the optimal solution.
-    check("NLP-03@01", equal(res$solution, solution.opt, tol = 1e-7 ))
+    check("NLP-03@01", equal(res$solution, solution.opt, tol = 1e-5 ))
     check("NLP-03@02", all( res$solution >= bounds(x)$lower$val ))
     check("NLP-03@03", all( res$solution <= bounds(x)$upper$val ))
     
@@ -418,6 +427,7 @@ test_nlp_04 <- function() {
 
     ## Solve Rosenbrock Banana function.
     res <- ROI_solve( x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
     
     # Run some checks on the optimal solution.
     check("NLP-04@01", equal(res$solution, solution.opt, tol = 1e-4 ))
@@ -470,6 +480,7 @@ test_nlp_05 <- function() {
 
     ## solve using nloptr adding params as an additional parameter
     res <- ROI_solve( x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
     
     ## Solve using algebra
     ## Minimize f(x) = ax^2 + bx + c.
@@ -535,6 +546,7 @@ test_nlp_06 <- function() {
 
     ## Solve using NLOPT_LD_MMA with gradient information supplied in separate function
     res <- ROI_solve( x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
 
     ## Run some checks on the optimal solution.
     check("NLP-06@01", equal(res$solution, solution.opt))
@@ -568,6 +580,7 @@ test_nlp_06 <- function() {
 
     ## Solve using NLOPT_LN_COBYLA without gradient information
     res <- ROI_solve( x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
     
     ## Run some checks on the optimal solution.
     check("NLP-06@03", equal(res$solution, solution.opt, tol = 1e-6))
@@ -642,6 +655,7 @@ test_nlp_07 <- function() {
              bounds = V_bound(1, 1, -Inf, Inf) )
 
     res <- ROI_solve( x, solver="nloptr", control )
+    stopifnot(is.numeric(res$solution))
     
     # Run some checks on the optimal solution.
     check("NLP-07@01", equal(res$solution, solution.opt))
@@ -689,6 +703,7 @@ test_nlp_07 <- function() {
              bounds = V_bound(1, 1, -Inf, Inf) )
 
     res <- ROI_solve( x, solver="nloptr", control)
+    stopifnot(is.numeric(res$solution))
       
     ## Run some checks on the optimal solution.
     check("NLP-07@03", equal(res$solution, solution.opt))
@@ -715,19 +730,69 @@ test_nlp_08 <- function() {
     lo <- L_objective(c(2, 4, 3))
     lc <- L_constraint(L = mat, dir = c("<=", "<=", "<="), rhs = c(60, 40, 80))
     lp <- OP(objective = lo, constraints = lc, maximum = TRUE)
-    lp_opt <- ROI_solve(lp)
+    lp_opt <- ROI_solve(lp, solver="glpk")
 
     nlp_opt <- ROI_solve(lp, solver="nloptr", start=c(1, 1, 1), method="NLOPT_LD_MMA")
 
+    stopifnot(is.numeric(lp_opt$solution))
+    stopifnot(is.numeric(nlp_opt$solution))
+    stopifnot(is.numeric(lp_opt$objval))
+    stopifnot(is.numeric(nlp_opt$objval))
     check("NLP-08@01", equal(lp_opt$objval, nlp_opt$objval))
     check("NLP-08@02", equal(lp_opt$solution, nlp_opt$solution))
 }
 
-local({test_nlp_01()})
-local({test_nlp_02()})
-local({test_nlp_03()})
-local({test_nlp_04()})
-local({test_nlp_05()})
-local({test_nlp_06()})
-local({test_nlp_07()})
-## local({test_nlp_08()})
+get_op_01 <- function() {
+    eval_f <- function(x) {
+        return( 100 * (x[2] - x[1] * x[1])^2 + (1 - x[1])^2 )
+    }
+
+    eval_grad_f <- function(x) {
+        return( c( -400 * x[1] * (x[2] - x[1] * x[1]) - 2 * (1 - x[1]),
+                   200 * (x[2] - x[1] * x[1])) )
+    }
+
+    ## initial values
+    x0 <- c( -1.2, 1 )
+
+    ## lower and upper bounds
+    lb <- c( -3, -3 )
+    ub <- c(  3,  3 )
+
+    ## -----------------------------------------------------
+    ## Test Rosenbrock Banana optimization with global optimizer NLOPT_GD_MLSL.
+    ## -----------------------------------------------------
+    ## Define optimizer options.
+    local_opts <- list( algorithm = "NLOPT_LD_LBFGS",
+                        xtol_rel  = 1e-4 )
+    
+    opts <- list( algorithm  = "NLOPT_GD_MLSL",
+                  maxeval    = 10000,
+                  population = 4,
+                  local_opts = local_opts )
+    control <- c(opts, start=list(x0))
+
+    x <- OP( objective = F_objective(eval_f, n=1L, G=eval_grad_f), 
+             bounds = V_bound(li=1:2, ui=1:2, lb=lb, ub=ub) )
+    return(x)
+}
+
+if ( !any("nloptr" %in% names(ROI_registered_solvers())) ) {
+    ## This should never happen.
+    cat("ROI.plugin.nloptr cloud not be found among the registered solvers.\n")
+} else {
+    print("Start Testing!")
+    local({test_nlp_01()})
+    local({test_nlp_02()})
+    local({test_nlp_03()})
+    local({test_nlp_04()})
+    local({test_nlp_05()})
+    local({test_nlp_06()})
+    local({test_nlp_07()})
+    ## NOTE: To compare standard lp solver with nlp solver, at least
+    ##       one lp solver has to be installed. For simplicity I fix it 
+    ##       with glpk.
+    if (isTRUE("ROI.plugin.glpk" %in% ROI_registered_solvers())) {
+        local({test_nlp_08()})
+    }
+}
