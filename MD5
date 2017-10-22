@@ -1,7 +1,7 @@
-e14ca760822cb13a8a106bac3b66b031 *DESCRIPTION
+b0e03a8c79d30227abb08e30eb393ac6 *DESCRIPTION
 6e9d34734eb0b8dbae4a7cf65ea69f29 *NAMESPACE
 d0953e8bc68133f14d7829ef0a9d773a *R/solve.R
 0ddf10d1a0c65433000588f13f7ace22 *R/status_codes.R
 0090e09cabcd9fb2af2e7a1b13a41500 *R/zzz.R
-9cdfe75fd245090c9f18046e032cf2e9 *man/Example_01.Rd
-d78d2ed2407e5d57b36653d7631dc576 *tests/test_nloptr.R
+61136f5a25f074ecabb3637cd5ad0a3d *man/Example_01.Rd
+81fe86274721a496744b6e591746e614 *tests/test_nloptr.R
