@@ -1,7 +1,7 @@
-027c661c7d217ad2e630f36bcda9b6fc *DESCRIPTION
+587c47f0c57c0a6398f410db225c6c47 *DESCRIPTION
 6e9d34734eb0b8dbae4a7cf65ea69f29 *NAMESPACE
-8295136acf146a496b649fa2aaf2e37e *R/solve.R
-0ddf10d1a0c65433000588f13f7ace22 *R/status_codes.R
-0090e09cabcd9fb2af2e7a1b13a41500 *R/zzz.R
-61136f5a25f074ecabb3637cd5ad0a3d *man/Example_01.Rd
-81fe86274721a496744b6e591746e614 *tests/test_nloptr.R
+61a48b509cf704c4c939efa12503f361 *R/solve.R
+fde33f1fa766578fa7bd4c12bcce8dbe *R/status_codes.R
+f90abe849fdfefc97e565172f761c53a *R/zzz.R
+4512739084ef00b453b217f5ba263460 *man/Example_01.Rd
+050c77da5bc1c85dc62e8aa0c9afa493 *tests/test_nloptr.R
