@@ -1,15 +1,16 @@
 Package: ROI.plugin.nloptr
-Version: 1.0-0
+Version: 1.0-1
 Title: 'nloptr' Plug-in for the 'R' Optimization Infrastructure
-Author: Florian Schwendinger [aut, cre]
-Maintainer: Florian Schwendinger <FlorianSchwendinger@gmx.at>
+Authors@R: person("Florian", "Schwendinger", role = c("aut", "cre"), email = "FlorianSchwendinger@gmx.at")
 Description: Enhances the R Optimization Infrastructure ('ROI') package
         with the 'NLopt' solver for solving nonlinear optimization problems.
-Imports: methods, stats, utils, ROI (>= 0.3-2), nloptr (>= 1.2.1)
+Imports: methods, stats, utils, ROI (>= 1.0-0), nloptr (>= 1.2.1)
 License: GPL-3
-URL: http://roi.r-forge.r-project.org/,
-        https://r-forge.r-project.org/projects/roi/
+URL: https://roigrp.gitlab.io,
+        https://gitlab.com/roigrp/solver/ROI.plugin.nloptr
 NeedsCompilation: no
-Packaged: 2020-08-29 17:29:40 UTC; f
+Packaged: 2023-07-06 14:53:43 UTC; f
+Author: Florian Schwendinger [aut, cre]
+Maintainer: Florian Schwendinger <FlorianSchwendinger@gmx.at>
 Repository: CRAN
-Date/Publication: 2020-08-29 18:00:03 UTC
+Date/Publication: 2023-07-06 16:10:05 UTC
